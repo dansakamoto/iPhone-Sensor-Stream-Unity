@@ -5,8 +5,9 @@
 
 using UnityEngine;
 using UnityEngine.iOS;
+using UnityEngine.Networking;
 
-public class GyroToCamera : MonoBehaviour
+public class GyroRead : NetworkBehaviour
 {
 
 	void Start()
@@ -15,6 +16,11 @@ public class GyroToCamera : MonoBehaviour
 		
 	protected void Update()
 	{
+		if (!isLocalPlayer)
+		{
+			return;
+		}
+
 		GyroModifyCamera();
 	}
 
@@ -33,7 +39,7 @@ public class GyroToCamera : MonoBehaviour
 	// Make the necessary change to the camera.
 	void GyroModifyCamera()
 	{
-		transform.rotation = GyroToUnity(Input.gyro.attitude);
+		transform.localRotation = GyroToUnity(Input.gyro.attitude);
 	}
 
 	private static Quaternion GyroToUnity(Quaternion q)
