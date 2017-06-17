@@ -30,19 +30,16 @@ public class oscControl : MonoBehaviour {
 	private Dictionary<string, ServerLog> servers;
 	private Dictionary<string, ClientLog> clients;
 	private float randVal=0f;
-	public GameObject cube;
+	//public GameObject cube;
+	public GameObject cam;
+
 	private String msg="";
 	// Script initialization
 	void Start() {	
 		OSCHandler.Instance.Init(); //init OSC
 		servers = new Dictionary<string, ServerLog>();
 		clients = new Dictionary<string,ClientLog> ();
-		cube = GameObject.Find ("Cube");
-	}
-
-	private static Quaternion GyroToUnity(Quaternion q)
-	{
-		return new Quaternion(q.x, q.y, -q.z, -q.w);
+		cam = GameObject.Find ("Main Camera");
 	}
 
 	// NOTE: The received messages at each server are updated here
@@ -50,8 +47,6 @@ public class oscControl : MonoBehaviour {
     // How many frames per second or Update() calls per frame?
 	void Update() {
 
-		transform.rotation = GyroToUnity(Input.gyro.attitude);
-		
 		OSCHandler.Instance.UpdateLogs();
 
 		msg="0.1544944";
@@ -61,10 +56,10 @@ public class oscControl : MonoBehaviour {
 		clients = OSCHandler.Instance.Clients;
 
 
-		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/x", transform.rotation.x);
-		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/y", transform.rotation.y);
-		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/z", transform.rotation.z);
-		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/z", transform.rotation.w);
+		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/x", cam.transform.rotation.x);
+		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/y", cam.transform.rotation.y);
+		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/z", cam.transform.rotation.z);
+		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/w", cam.transform.rotation.w);
 
 		/*
 		if (UnityEngine.Random.value < 0.01f) {
@@ -91,7 +86,7 @@ public class oscControl : MonoBehaviour {
 					
 				//converts the values into MIDI to scale the cube
 				float tempVal = float.Parse (item.Value.packets [lastPacketIndex].Data [0].ToString ());
-				cube.transform.localScale = new Vector3 (tempVal, tempVal, tempVal);
+				//cube.transform.localScale = new Vector3 (tempVal, tempVal, tempVal);
 			}
 		}
 			
