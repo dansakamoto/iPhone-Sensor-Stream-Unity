@@ -64,6 +64,7 @@ public class oscControl : MonoBehaviour {
 		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/x", transform.rotation.x);
 		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/y", transform.rotation.y);
 		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/z", transform.rotation.z);
+		OSCHandler.Instance.SendMessageToClient ("HomeBase", "/phonesense/gyro/z", transform.rotation.w);
 
 		/*
 		if (UnityEngine.Random.value < 0.01f) {
