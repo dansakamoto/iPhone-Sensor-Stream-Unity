@@ -50,20 +50,23 @@ namespace OMobile.EstimoteUnity
 			string debugBeacons = "";
 			if (beacons != null && beacons.Count > 0) {
 				foreach (EstimoteUnityBeacon beacon in beacons) {
-					debugBeacons += beacon.ToString () + "\n";
 
 					if (beacon.Minor == us_min) {
 						us = beacon.Accuracy;
+						debugBeacons += "US: " + beacon.ToString () + "\n";
 					} else if (beacon.Minor == ds_min) {
 						ds = beacon.Accuracy;
+						debugBeacons += "DS: " + beacon.ToString () + "\n";
 					} else if (beacon.Minor == sl_min) {
 						sl = beacon.Accuracy;
+						debugBeacons += "SL: " + beacon.ToString () + "\n";
 					} else if (beacon.Minor == sr_min) {
 						sr = beacon.Accuracy;
+						debugBeacons += "SR: " + beacon.ToString () + "\n";
 					}
 				}
 			}
-			//_DebugText.text = debugBeacons;
+			_DebugText.text = debugBeacons;
 			//Debug.Log ("values: " + us + ds + sr + sl);
 		}
 
